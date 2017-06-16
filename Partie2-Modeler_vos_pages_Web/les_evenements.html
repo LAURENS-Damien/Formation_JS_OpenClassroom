@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>Hello World!</title>
+    <style>
+    #myDiv, #results {
+	    margin: 50px;
+	}
+	
+	#myDiv {
+	    padding: 10px;
+	    width: 200px;
+	    text-align: center;
+	    background-color: #000;
+	}
+	
+	#myDiv div {
+	    margin: 10px;
+	    background-color: #555;
+	}
+    </style>
+</head>
+
+<body>
+	<!-- Exemple d'utilisation d'évènement -->
+	<span onclick="alert('Hello !');">Cliquez-moi !</span>
+	<br /><br/>
+	
+	<!-- Exemple avec utilisation du mot clé "this" -->
+	<span onclick="alert('Voici le contenu de l\'élément que vous avez cliqué :\n\n' + this.innerHTML);">Cliquez-moi !</span>
+    <br /><br/>
+    
+    <!-- Le focus -->
+    <input id="input" type="text" size="50" value="Cliquez ici !" onfocus="this.value='Appuyez maintenant sur votre touche de tabulation.';" onblur="this.value='Cliquez ici !';"/>
+	<br /><br/>
+	<a href="#" onfocus="document.getElementById('input').value = 'Vous avez maintenant le focus sur le lien, bravo !';">Un lien bidon</a>
+    <br /><br/>
+    
+    <!-- Bloquer l'action par défaut de certains événements (en utilisant "return false;") -->
+    <a href="http://www.siteduzero.com" onclick="alert('Vous avez cliqué !'); return false;">Cliquez-moi !</a>
+    <br /><br/>
+    
+    <!-- Début des exemples en DOM-2 -->
+    <span id="clickme">Cliquez-moi !</span>
+    <br /><br/>
+    
+    <div id="capt1">
+	    <span id="capt2">Cliquez-moi pour la phase de capture.</span>
+	</div>
+	
+	<div id="boul1">
+	    <span id="boul2">Cliquez-moi pour la phase de bouillonnement.</span>
+	</div>
+	<br /><br/>
+	
+	<p id="result"></p>
+
+	<div id="parent1">
+	    Parent
+	    <div id="child1">Enfant N°1</div>
+	    <div id="child2">Enfant N°2</div>
+	</div>
+	<br /><br/>
+	
+	<div id="position"></div>
+	<br /><br/>
+	
+	<p id="resultSec"></p>
+
+	<div id="parent1Sec">
+	    Parent N°1<br /> Mouseover sur l'enfant
+	    <div id="child1Sec">Enfant N°1</div>
+	</div>
+	
+	<div id="parent2Sec">
+	    Parent N°2<br /> Mouseout sur l'enfant
+	    <div id="child2Sec">Enfant N°2</div>
+	</div>
+	<br /><br/>
+	
+	<p>
+	    <input id="field" type="text" />
+	</p>
+	
+	<table>
+	    <tr>
+	        <td>keydown</td>
+	        <td id="down"></td>
+	    </tr>
+	    <tr>
+	        <td>keypress</td>
+	        <td id="press"></td>
+	    </tr>
+	    <tr>
+	        <td>keyup</td>
+	        <td id="up"></td>
+	    </tr>
+	</table>
+	<br /><br/>
+	
+	<a id="link" href="http://www.siteduzero.com">Cliquez-moi !</a>
+	<br /><br/>
+	
+	<div id="myDiv">
+	    <div>Texte 1</div>
+	    <div>Texte 2</div>
+	    <div>Texte 3</div>
+	    <div>Texte 4</div>
+	</div>
+	
+	<div id="results"></div>
+    
+    <script type="text/javascript" src="js/les_evenements.js"></script>
+</body>
+</html>
