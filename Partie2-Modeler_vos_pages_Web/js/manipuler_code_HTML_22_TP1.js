@@ -1,3 +1,5 @@
+// Création de la div pour le TP1
+(function (){
 // Création de la divTP1
 var baliseDivTP1 = document.createElement('div');
 baliseDivTP1.id = 'divTP1';
@@ -51,3 +53,4 @@ for(var i=0, taille=tabContenu.length; i<taille; i++) {
 }
 
 document.body.appendChild(baliseDivTP1);
+})();
