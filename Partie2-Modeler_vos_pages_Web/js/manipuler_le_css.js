@@ -46,45 +46,35 @@ console.log("Avec la fonction de calcul, la position de l'élément enfant est :
 
 
 /*------------------------------------ Votre premier script interactif ! ------------------------------------*/
-(function (){
-var draggableBoxs = document.getElementsByClassName('draggableBox');
-var topOri, leftOri, topDivADeplacer, leftDivADeplacer, nouveauTopDivADeplacer, 
-	nouveauLeftDivADeplacer, elementCourant;
+(function() { // On utilise une IIFE pour ne pas polluer l'espace global
+    var storage = {}; // Contient l'objet de la div en cours de déplacement
 
-for (var i = 0, taille = draggableBoxs.length; i < taille; i++) {
-	// On récupère la position d'origine
-	draggableBoxs[i].addEventListener('mousedown', function(e) {
-//		console.log(e.target.offsetTop);
-//		console.log(e.target.offsetLeft);
-		topDivADeplacer = e.target.offsetTop;
-		leftDivADeplacer = e.target.offsetLeft;
-		
-		// On garde la référence à l'élément courant
-		elementCourant = e.target;
-	});
-	
-	// On met à jour avec les nouvelles positions
-	draggableBoxs[i].addEventListener('mouseup', function(e) {
-//		console.log("On rentre");
-//		console.log(e.target.style.top);
-//		console.log(e.target.style.left);
-		e.target.style.top = nouveauTopDivADeplacer+'px';
-		e.target.style.left = nouveauLeftDivADeplacer+'px';
-//		console.log(e.target.style.top);
-//		console.log(e.target.style.left);
+    function init() { // La fonction d'initialisation
+        var elements = document.querySelectorAll('.draggableBox'),
+            elementsLength = elements.length;
 
-	});
-	
-	// On calcule dynamiquement la nouvelle position
-	document.addEventListener('mousemove', function(e) {		
-		nouveauTopDivADeplacer = e.clientX;
-		nouveauLeftDivADeplacer = e.clientY;
-		console.log(e.clientX);
-		console.log(e.clientY);
-		elementCourant.style.top = nouveauTopDivADeplacer+'px';
-		elementCourant.style.left = nouveauLeftDivADeplacer+'px';
-		console.log(elementCourant.style.top);
-		console.log(elementCourant.style.left);
-	});
-}
+        for (var i = 0; i < elementsLength; i++) {
+            elements[i].addEventListener('mousedown', function(e) { // Initialise le drag & drop
+                var s = storage;
+                s.target = e.target;
+                s.offsetX = e.clientX - s.target.offsetLeft;
+                s.offsetY = e.clientY - s.target.offsetTop;
+            });
+
+            elements[i].addEventListener('mouseup', function() { // Termine le drag & drop
+                storage = {};
+            });
+        }
+
+        document.addEventListener('mousemove', function(e) { // Permet le suivi du drag & drop
+            var target = storage.target;
+
+            if (target) {
+                target.style.top = e.clientY - storage.offsetY + 'px';
+                target.style.left = e.clientX - storage.offsetX + 'px';
+            }
+        });
+    }
+
+    init(); // On initialise le code avec notre fonction toute prête.
 })();
