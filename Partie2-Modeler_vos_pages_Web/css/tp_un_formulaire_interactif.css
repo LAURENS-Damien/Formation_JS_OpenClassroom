@@ -1,0 +1,79 @@
+h1 {
+	text-align: center;
+}
+
+#formulaire {
+	width: 1000px;
+}
+
+.champFormulaireMulti {
+	margin-bottom: 10px;
+}
+
+.champFormulaireMulti .champFormulaireMultiLabel {
+	margin-right: 50px;
+	width: 400px;
+	display: inline-block;
+	text-align: right;
+	vertical-align: top;
+	padding: 4px;
+}
+
+.champFormulaireMulti .champFormulaireMultiVals {
+	width: 177px;
+	display: inline-block;
+	vertical-align: top;
+	/* border: 1px solid black; */
+}
+
+.champFormulaireMultiVal {
+	text-align: left;
+	height : 30px;
+}
+
+.champFormulaireMultiVal > label {
+	width: 80px;
+	display: inline-block;
+	text-align: left;
+}
+
+.champFormulaireMultiVal > input {
+	margin-left: 0px;
+}
+
+.champFormulaire {
+	height : 50px;
+}
+
+.champFormulaire > label {
+	margin-right: 50px;
+	width: 400px;
+	display: inline-block;
+	text-align: right;
+	vertical-align: top;
+	padding: 4px;
+}
+
+.champFormulaire > input {
+	width: 169px;
+	display: inline-block;
+	vertical-align: top;
+	padding: 4px;
+	/* border: 1px solid black; */
+}
+
+.champFormulaire > span > input[type="checkbox"] {	
+	margin-right: 169px;
+	margin-left: 0px;
+}
+
+.bouttonsFormulaire {
+	text-align: center;
+}
+
+input[type="submit"], input[type="reset"] {
+	font-size: 15px;
+	border: grey 1px solid;
+	border-radius: 1em;
+}
+	

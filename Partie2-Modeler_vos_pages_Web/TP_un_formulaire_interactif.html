@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>Formulaire interactif</title>
+    <link rel="stylesheet" type="text/css" href="css/tp_un_formulaire_interactif.css">
+</head>
+
+<body>
+	<h1>Mon formulaire interactif</h1><br><br>
+	<form id="formulaire">
+		<div id="formulaireSexe" class="champFormulaireMulti">
+			<div class="champFormulaireMultiLabel">
+				Sexe : 
+			</div>
+			<div class="champFormulaireMultiVals">
+				<div class="champFormulaireMultiVal">	
+					<input id="formulaireSexeH" type="radio" name="sexe" />
+					<label>Homme</label>					
+				</div>
+				<div class="champFormulaireMultiVal">
+					<input id="formulaireSexeF" type="radio" name="sexe"/>
+					<label>Femme</label>					
+				</div>
+			</div>
+		</div>
+		<div class="champFormulaire">
+			<label>Nom : </label>
+			<input id="formulaireNom" type="text"/>
+		</div>
+		<div class="champFormulaire">
+			<label>Prénom : </label>
+			<input id="formulairePrenom" type="text"/>
+		</div>
+		<div class="champFormulaire">
+			<label>Âge : </label>
+			<input id="formulaireAge" type="text"/>
+		</div>
+		<div class="champFormulaire">
+			<label>Pseudo : </label>
+			<input id="formulairePseudo" type="text"/>
+		</div>
+		<div class="champFormulaire">
+			<label>Mot de passe : </label>
+			<input id="formulaireMDP" type="password"/>
+		</div>
+		<div class="champFormulaire">
+			<label>Mot de passe (confirmation) : </label>
+			<input id="formulaireMDPConf" type="password"/>
+		</div>
+		<div class="champFormulaire">
+			<label>Pays : </label>
+			<input id="formulairePays" type="text"/>
+		</div>
+		<div class="champFormulaire">
+			<label>Voulez vous vous abonner à notre newsletter ? : </label>
+			<span><input id="formulaireAboNewsletter" type="checkbox"/></span>
+		</div>
+		<div class="bouttonsFormulaire">
+	    	<input id="boutonSubmit" type="submit" value="Valider" />
+	    	<input id="boutonReset" type="reset" value="Réinitialiser" />
+	    </div>
+	</form>
+	
+	<script type="text/javascript" src="js/mesFonctions.js"></script>
+    <script type="text/javascript" src="js/tp_un_formulaire_interactif.js"></script>    
+</body>
+</html>
