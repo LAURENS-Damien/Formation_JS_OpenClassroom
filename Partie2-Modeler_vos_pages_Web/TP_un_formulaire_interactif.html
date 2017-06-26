@@ -11,7 +11,7 @@
 	<form id="formulaire">
 		<div id="formulaireSexe" class="champFormulaireMulti">
 			<div class="champFormulaireMultiLabel">
-				Sexe : 
+				Sexe* : 
 			</div>
 			<div class="champFormulaireMultiVals">
 				<div class="champFormulaireMultiVal">	
@@ -25,32 +25,37 @@
 			</div>
 		</div>
 		<div class="champFormulaire">
-			<label>Nom : </label>
+			<label>Nom* : </label>
 			<input id="formulaireNom" type="text"/>
 		</div>
 		<div class="champFormulaire">
-			<label>Prénom : </label>
+			<label>Prénom* : </label>
 			<input id="formulairePrenom" type="text"/>
 		</div>
 		<div class="champFormulaire">
-			<label>Âge : </label>
+			<label>Âge* : </label>
 			<input id="formulaireAge" type="text"/>
 		</div>
 		<div class="champFormulaire">
-			<label>Pseudo : </label>
+			<label>Pseudo* : </label>
 			<input id="formulairePseudo" type="text"/>
 		</div>
 		<div class="champFormulaire">
-			<label>Mot de passe : </label>
+			<label>Mot de passe* : </label>
 			<input id="formulaireMDP" type="password"/>
 		</div>
 		<div class="champFormulaire">
-			<label>Mot de passe (confirmation) : </label>
+			<label>Mot de passe (confirmation)* : </label>
 			<input id="formulaireMDPConf" type="password"/>
 		</div>
 		<div class="champFormulaire">
-			<label>Pays : </label>
-			<input id="formulairePays" type="text"/>
+			<label>Pays* : </label>
+			<select id="formulairePays">
+			    <option value="" selected="selected"></option>
+			    <option value="France">France</option>
+			    <option value="Espagne">Espagne</option>
+			    <option value="Angleterre">Angleterre</option>
+			</select>
 		</div>
 		<div class="champFormulaire">
 			<label>Voulez vous vous abonner à notre newsletter ? : </label>
