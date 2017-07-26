@@ -1,98 +1,116 @@
-var rechercheVille = document.getElementById('rechercheVille'),
-	listeVilles = document.getElementById('listeVilles');
-
-var villeCourante = '', villePrecedente = '', idVilleCourante = -1, nombreVilles = 0;
-
-// Appel AJAX pour recherche les villes correspondant à la recherche
-function lanceRecherche(rechercheVilleValue) {
-
-	// On envoi la recherche à la fonction PHP
-	var xhr = new XMLHttpRequest();
-
-	// On récupère les informations côté PHP
-	xhr.open('GET', '../TP_auto_completion.php?chaineAChercher=' + rechercheVilleValue);
-
-	//Réception des données
-	xhr.addEventListener('readystatechange', function() {
-
-	    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-	    	
-	    	var villes = xhr.responseText.split('|');
-
-	    	if (villes != '') {
-
-	    		listeVilles.style = "display: block";
-	    		nombreVilles = villes.length
-	    		
-		    	for(var i = 0, taille = nombreVilles; i < taille; i++) {		    		
-		    		var ville = listeVilles.appendChild(document.createElement('div'));
-		    		ville.innerHTML = villes[i];
-		    		ville.id = 'ville' + i;
-		    	}    	
-	    	} else {
-	    		listeVilles.style = "display: none";
-	    	}
-	    }
-	});
-
-	xhr.send(null); // La requête est prête, on envoie tout !
-}
-
-// On lance la recherche à chaque fois qu'une touche est relâchée
-rechercheVille.addEventListener('keyup', function(e) {
-
-	// Si on appui sur la touche "Bas"
-	if (e.keyCode == 40) {
-		console.log('Valeur avant de rentrer' + idVilleCourante);
-		if (idVilleCourante < nombreVilles-1) {
-			idVilleCourante++;
+(function() {
+    
+	var searchElement = document.getElementById('search'),
+	    results = document.getElementById('results'),
+	    selectedResult = -1, // Permet de savoir quel résultat est sélectionné : -1 signifie "aucune sélection"
+	    previousRequest, // On stocke notre précédente requête dans cette variable
+    	previousValue = searchElement.value; // On fait de même avec la précédente valeur
 	
-			
-			villeCourante = document.getElementById('ville'+idVilleCourante);
-			villeCourante.className = 'champ_selectionne';
-			
-			// Si le courant n'est pas le premier résultat de la liste
-			if (idVilleCourante > 0) {
-				villePrecedente = document.getElementById('ville'+(idVilleCourante-1));
-				villePrecedente.className = '';
-			}
-		}
 	
-	// Si on appui sur la touche "Haut"
-	} else if (e.keyCode == 38) {
-		console.log('Valeur avant de rentrer' + idVilleCourante);
-		if (idVilleCourante > 0) {
-			
-			idVilleCourante--;		
-			
-			villeCourante = document.getElementById('ville'+idVilleCourante);
-			villeCourante.className = 'champ_selectionne';
-			
-			// Si le courant n'est pas le premier résultat de la liste
-			if (idVilleCourante > -1) {
-				villePrecedente = document.getElementById('ville'+(idVilleCourante+1));
-				villePrecedente.className = '';
-			}	
-		}
-		
-	// Si on appui sur la touche "Entrée"
-	} else if (e.keyCode == 13) {
-		// On affecte le contenu de la ville sélectionné au champ de recherche
-		rechercheVille.value = villeCourante.innerHTML;
-		listeVilles.style = "display: none";
-		listeVilles.innerHTML = '';
-		idVilleCourante = -1;
-		nombreVilles = 0;
-	} else {
-		listeVilles.innerHTML = '';
-		lanceRecherche(rechercheVille.value);
-		idVilleCourante = -1;
+	
+	function getResults(keywords) { // Effectue une requête et récupère les résultats
+	
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', '../TP_auto_completion.php?s='+ encodeURIComponent(keywords));
+	
+    	xhr.addEventListener('readystatechange', function() {
+        	if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+	
+	            displayResults(xhr.responseText);
+	
+        	}
+	    });
+	
+	    xhr.send(null);
+	
+	    return xhr;
+	
 	}
-});
-
-// Permet de sélectionner une des propositions de la liste
-listeVilles.addEventListener('mouseup', function(e) {
-	rechercheVille.value = e.target.innerHTML;
-	listeVilles.style = "display: none";
-	listeVilles.innerHTML = '';
-});
+	
+	function displayResults(response) { // Affiche les résultats d'une requête
+	
+    	results.style.display = response.length ? 'block' : 'none'; // On cache le conteneur si on n'a pas de résultats
+	
+	    if (response.length) { // On ne modifie les résultats que si on en a obtenu
+	
+	        response = response.split('|');
+	        var responseLen = response.length;
+	
+	        results.innerHTML = ''; // On vide les résultats
+	
+	        for (var i = 0, div ; i < responseLen ; i++) {
+	
+            	div = results.appendChild(document.createElement('div'));
+            	div.innerHTML = response[i];
+	
+            	div.addEventListener('click', function(e) {
+                	chooseResult(e.target);
+	            });
+	
+	        }
+	
+	    }
+	
+	}
+	
+	function chooseResult(result) { // Choisi un des résultats d'une requête et gère tout ce qui y est attaché
+	
+	    searchElement.value = previousValue = result.innerHTML; // On change le contenu du champ de recherche et on enregistre en tant que précédente valeur
+	    results.style.display = 'none'; // On cache les résultats
+	    result.className = ''; // On supprime l'effet de focus
+	    selectedResult = -1; // On remet la sélection à "zéro"
+	    searchElement.focus(); // Si le résultat a été choisi par le biais d'un clique alors le focus est perdu, donc on le réattribue
+	
+	}
+	
+	
+	
+	searchElement.addEventListener('keyup', function(e) {
+	
+    	var divs = results.getElementsByTagName('div');
+	
+	    if (e.keyCode == 38 && selectedResult > -1) { // Si la touche pressée est la flèche "haut"
+	
+	        divs[selectedResult--].className = '';
+	
+	        if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
+	            divs[selectedResult].className = 'result_focus';
+	        }
+	
+	    }
+	
+	    else if (e.keyCode == 40 && selectedResult < divs.length - 1) { // Si la touche pressée est la flèche "bas"
+	
+        	results.style.display = 'block'; // On affiche les résultats
+	
+	        if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
+            	divs[selectedResult].className = '';
+	        }
+	
+        	divs[++selectedResult].className = 'result_focus';
+	
+	    }
+	
+	    else if (e.keyCode == 13 && selectedResult > -1) { // Si la touche pressée est "Entrée"
+	
+	        chooseResult(divs[selectedResult]);
+	
+	    }
+	
+    	else if (searchElement.value != previousValue) { // Si le contenu du champ de recherche a changé
+	
+	        previousValue = searchElement.value;
+	
+	        if (previousRequest && previousRequest.readyState < XMLHttpRequest.DONE) {
+	            previousRequest.abort(); // Si on a toujours une requête en cours, on l'arrête
+        	}
+	
+	        previousRequest = getResults(previousValue); // On stocke la nouvelle requête
+	
+	        selectedResult = -1; // On remet la sélection à "zéro" à chaque caractère écrit
+	
+    	}
+	
+	});
+	
+})();

@@ -1,17 +1,43 @@
-#rechercheVille {
-	width: 200px;
+body {
+  margin: auto;
+  padding-top: 80px;
+  width: 300px;
+  font-family: sans-serif;
+  font-size: 0.8em;
+  background-color: #F5F5F5;
 }
 
-#listeVilles {
-	display: none;
-	width: 202px;
-	border: 1px solid black;
+input[type="submit"] {
+  margin-left: 10px;
+  width: 50px; height: 26px;
 }
 
-#listeVilles div {
-	padding: 1px 2px 1px 2px;
+#search {
+  padding: 2px 4px;
+  width: 220px; height: 22px;
+  border: 1px solid #AAA;
 }
 
-.champ_selectionne {
-	background-color: #BBACAC;
+#search:hover, #search:focus {
+  border-color: #777;
+}
+
+#results {
+  display: none;
+  width: 228px;
+  border: 1px solid #AAA;
+  border-top-width: 0;
+  background-color: #FFF;
+}
+
+#results div {
+  width: 220px;
+  padding: 2px 4px;
+  text-align: left;
+  border: 0;
+  background-color: #FFF;
+}
+
+#results div:hover, .result_focus {
+  background-color: #DDD !important;
 }
