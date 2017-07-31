@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" type="text/css" href="css/Audio_et_video.css">
+</head>
+
+<body>
+	
+	<audio id="audioPlayer" ontimeupdate="update(this)">
+	    <source src="audios/Sleep_Away.ogg">
+	    <source src="audios/Sleep_Away.mp3">
+	</audio>
+	
+	<div>
+	    <div id="progressBarControl">
+	        <div id="progressBar" onclick="clickProgress('audioPlayer', this, event)">Pas de lecture</div>
+	    </div>
+	</div>
+	<span id="progressTime">00:00</span>
+	
+	<button class="control" onclick="play('audioPlayer', this)">Play</button>
+	<button class="control" onclick="resume('audioPlayer')">Stop</button>
+	
+	<span class="volume">
+	    <a class="stick1" onclick="volume('audioPlayer', 0)"></a>
+	    <a class="stick2" onclick="volume('audioPlayer', 0.3)"></a>
+	    <a class="stick3" onclick="volume('audioPlayer', 0.5)"></a>
+	    <a class="stick4" onclick="volume('audioPlayer', 0.7)"></a>
+	    <a class="stick5" onclick="volume('audioPlayer', 1)"></a>
+	</span>
+	
+    <script type="text/javascript" src="js/Audio_et_video.js"></script>
+</body>
+</html>
